@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/activity_root"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
     >
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/droids"/>
+  </LinearLayout>
+  <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="送信"
+        android:id="@+id/send_button"
+        android:layout_alignParentRight="true"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/send_button"
+        android:id="@+id/editText"/>
+  </RelativeLayout>
+  <ListView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/conversation_list"/>
 </LinearLayout>
 
