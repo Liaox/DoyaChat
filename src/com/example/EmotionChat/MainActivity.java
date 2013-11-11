@@ -2,11 +2,14 @@ package com.example.EmotionChat;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
+    private static final String TAG = "EmotionChat";
     String[] DUMMY_CONVERSATION = new String[] {
             "こんにちは", "さようなら", "Gracenote: 楽曲メタデータとその関連情報 (曲のムードがとれる)，流れている音楽を認識も",
             "園田、もう２限も終わってるんだぞ。遅刻の罰として放課後1人でグランド１０週だ",
@@ -23,8 +26,30 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        final View activityRootView = findViewById(R.id.activity_root);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+                if (heightDiff > 300) {
+                    onKeyboardAppear();
+                } else {
+                    onKeyboardDisappear();
+                }
+                Log.d(TAG, "height change" + heightDiff);
+            }
+        });
+
         ListView listView = (ListView) findViewById(R.id.conversation_list);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, DUMMY_CONVERSATION);
         listView.setAdapter(adapter);
+    }
+
+    private void onKeyboardAppear() {
+        findViewById(R.id.face_wrapper).setVisibility(View.GONE);
+    }
+
+    private void onKeyboardDisappear() {
+        findViewById(R.id.face_wrapper).setVisibility(View.VISIBLE);
     }
 }
