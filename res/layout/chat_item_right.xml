@@ -4,16 +4,16 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@drawable/bubble_right">
+              android:paddingLeft="20dp"
+              android:paddingTop="3dp"
+              android:paddingBottom="3dp">
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/chat_content"
       android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew Text"
-      android:layout_marginLeft="20dp"
-      android:layout_marginTop="30dp"
-      android:layout_marginRight="50dp"
-      android:layout_marginBottom="20dp"
       android:textSize="16sp"
-      android:gravity="right"/>
+      android:gravity="right"
+      android:autoText="false"
+      android:background="@drawable/balloon_right"/>
 </LinearLayout>

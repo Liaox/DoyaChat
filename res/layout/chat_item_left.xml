@@ -4,15 +4,14 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@drawable/bubble_left">
+              android:paddingLeft="20dp"
+              android:paddingTop="3dp"
+              android:paddingBottom="3dp">
   <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/chat_content"
+      android:background="@drawable/balloon_left"
       android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew Text"
-      android:layout_marginLeft="50dp"
-      android:layout_marginTop="15dp"
-      android:layout_marginRight="20dp"
-      android:layout_marginBottom="20dp"
       android:textSize="16sp"/>
 </LinearLayout>
