@@ -1,7 +1,12 @@
 package com.example.EmotionChat;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
@@ -10,10 +15,27 @@ import android.widget.ListView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     private long friendId = 1;
+    private ArrayAdapter adapter;
+
+    public static final String UPDATE_CHAT_EVENT = "update_chat";
+    public static final String EXTRA_KEY_USER_ID = "user_id";
+    public static final String EXTRA_KEY_CONTENT = "content";
+    private BroadcastReceiver chatUpdateReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            DoyaLogger.debug("on Receive", intent);
+            adapter.add(new ChatItem(
+                    intent.getLongExtra(EXTRA_KEY_USER_ID, -1L),
+                    intent.getStringExtra(EXTRA_KEY_CONTENT)
+            ));
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +44,8 @@ public class MainActivity extends Activity {
 
         getActionBar().setTitle("さやかと会話");
         getActionBar().setDisplayShowHomeEnabled(false);
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                chatUpdateReceiver, new IntentFilter(UPDATE_CHAT_EVENT));
 
         final View activityRootView = findViewById(R.id.activity_root);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -38,7 +62,7 @@ public class MainActivity extends Activity {
         initGoogleCloudMessagingIfNecessary();
 
         ListView listView = (ListView) findViewById(R.id.conversation_list);
-        final ArrayAdapter adapter = new ChatAdapter(this, new ArrayList<ChatItem>());
+        adapter = new ChatAdapter(this, new ArrayList<ChatItem>());
         listView.setAdapter(adapter);
 
         findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
@@ -74,6 +98,11 @@ public class MainActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(chatUpdateReceiver);
+        super.onDestroy();
+    }
 
     private void initGoogleCloudMessagingIfNecessary() {
         GoogleCloudMessagingHelper googleCloudMessagingHelper = new GoogleCloudMessagingHelper(this);
