@@ -138,7 +138,7 @@ public class GoogleCloudMessagingHelper {
                             DoyaLogger.debug(
                                     "Registration ID successfully sent to server. Your ID is " + obj.getLong("id"));
                             DoyaPreferences.getDefaultEditor(context).putLong(
-                                    DoyaPreferences.KEY_MY_ID, obj.getLong("id"));
+                                    DoyaPreferences.KEY_MY_ID, obj.getLong("id")).commit();
                         } catch (JSONException e) {
                             DoyaLogger.error("reg json parse" ,e);
                         }
