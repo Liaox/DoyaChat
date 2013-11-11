@@ -6,3 +6,4 @@ proguard-project.txt
 *.iml
 gen/
 out/
+assets/gcm.properties

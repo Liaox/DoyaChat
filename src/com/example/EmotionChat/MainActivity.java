@@ -2,14 +2,12 @@ package com.example.EmotionChat;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
-    private static final String TAG = "EmotionChat";
     String[] DUMMY_CONVERSATION = new String[] {
             "こんにちは", "さようなら", "Gracenote: 楽曲メタデータとその関連情報 (曲のムードがとれる)，流れている音楽を認識も",
             "園田、もう２限も終わってるんだぞ。遅刻の罰として放課後1人でグランド１０週だ",
@@ -36,13 +34,27 @@ public class MainActivity extends Activity {
                 } else {
                     onKeyboardDisappear();
                 }
-                Log.d(TAG, "height change" + heightDiff);
             }
         });
+        initGoogleCloudMessagingIfNecessary();
 
         ListView listView = (ListView) findViewById(R.id.conversation_list);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, DUMMY_CONVERSATION);
         listView.setAdapter(adapter);
+    }
+
+
+    private void initGoogleCloudMessagingIfNecessary() {
+        GoogleCloudMessagingHelper googleCloudMessagingHelper = new GoogleCloudMessagingHelper(this);
+        if (!googleCloudMessagingHelper.checkPlayServices()) {
+            DoyaLogger.debug("service not available");
+            return;
+        }
+        String registrationId = googleCloudMessagingHelper.getRegistrationId(this);
+        DoyaLogger.debug("regId: ", registrationId);
+        if (registrationId.isEmpty()) {
+            googleCloudMessagingHelper.registerInBackground(getApplicationContext());
+        }
     }
 
     private void onKeyboardAppear() {
