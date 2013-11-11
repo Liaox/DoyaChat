@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.EmotionChat.dev.FakeRequestQueue;
 
 /**
  * アプリケーション全体で利用する管理するクラスなどを管理する

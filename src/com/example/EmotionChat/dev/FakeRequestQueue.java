@@ -1,4 +1,4 @@
-package com.example.EmotionChat;
+package com.example.EmotionChat.dev;
 
 import android.content.Context;
 import com.android.volley.AuthFailureError;
@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.NoCache;
+import com.example.EmotionChat.util.DoyaLogger;
 
 /**
  * {@link FakeHttpStack}を利用して偽の通信結果を返す{@link com.android.volley.RequestQueue}.あちこちで適当にログを吐く．

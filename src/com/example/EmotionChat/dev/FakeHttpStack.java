@@ -1,10 +1,12 @@
-package com.example.EmotionChat;
+package com.example.EmotionChat.dev;
 
 import android.content.Context;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.StringRequest;
+import com.example.EmotionChat.util.DoyaLogger;
+import com.example.EmotionChat.api.DoyaAPI;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;

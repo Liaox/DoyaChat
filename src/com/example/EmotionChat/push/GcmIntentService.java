@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import com.example.EmotionChat.DoyaLogger;
+import com.example.EmotionChat.util.DoyaLogger;
 import com.example.EmotionChat.MainActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
