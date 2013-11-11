@@ -13,9 +13,9 @@
       android:layout_gravity="center">
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@drawable/droids"/>
+        android:src="@drawable/faces"/>
   </LinearLayout>
   <RelativeLayout
       android:layout_width="fill_parent"
