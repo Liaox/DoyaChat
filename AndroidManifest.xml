@@ -20,7 +20,7 @@
     <activity
         android:name="MainActivity"
         android:windowSoftInputMode="adjustResize"
-        android:theme="@android:style/Theme.Holo.Light"
+        android:theme="@style/doya_theme"
         android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

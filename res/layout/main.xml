@@ -10,12 +10,16 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/face_wrapper"
-      android:layout_gravity="center">
+      android:layout_gravity="center"
+      android:paddingBottom="10dp"
+      android:background="@color/background_white"
+      android:paddingTop="5dp">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:id="@+id/imageView"
-        android:src="@drawable/faces"/>
+        android:src="@drawable/faces"
+        android:background="@color/background_white"/>
   </LinearLayout>
   <RelativeLayout
       android:layout_width="fill_parent"
@@ -30,6 +34,7 @@
           android:layout_height="wrap_content"
           android:text="送信"
           android:id="@+id/send_button"
+          android:background="@drawable/btn_color_stateful"
           android:layout_alignParentRight="true"/>
       <EditText
           android:layout_width="match_parent"

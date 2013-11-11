@@ -24,6 +24,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        getActionBar().setTitle("さやかと会話");
+        getActionBar().setDisplayShowHomeEnabled(false);
+
         final View activityRootView = findViewById(R.id.activity_root);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
