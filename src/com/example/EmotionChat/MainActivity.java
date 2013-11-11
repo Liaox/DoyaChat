@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.*;
@@ -72,6 +74,9 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.conversation_list);
         adapter = new ChatAdapter(this, new ArrayList<ChatItem>());
         listView.setAdapter(adapter);
+
+        listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        listView.setDividerHeight(1);
 
         findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
             @Override
