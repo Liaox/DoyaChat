@@ -152,6 +152,7 @@ public class GoogleCloudMessagingHelper {
                 }
         );
         request.setRetryPolicy(DoyaAPI.RETRY_POLICY_SUPER_LONG);
+        DoyaLogger.dumpRequest(request);
         DoyaApp.defaultRequestQueue().add(request);
     }
 

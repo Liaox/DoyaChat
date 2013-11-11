@@ -1,6 +1,9 @@
 package com.example.EmotionChat;
 
 import android.util.Log;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -38,6 +41,32 @@ public class DoyaLogger {
 
     static public int error(String msg, Throwable throwable) {
         return Log.e(DEFAULT_TAG, msg, throwable);
+    }
+
+    static public int error(String msg, VolleyError volleyError) {
+        if (volleyError != null && volleyError.networkResponse != null) {
+            return Log.e(DEFAULT_TAG, msg + " [" + volleyError.networkResponse.statusCode + "] "
+                    + new String(volleyError.networkResponse.data), volleyError);
+        } else {
+            return Log.e(DEFAULT_TAG, msg + " null response ", volleyError);
+        }
+    }
+
+    static public int dumpRequest(Request request) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("url: ").append(request.getUrl()).append("\n")
+                .append("method: ").append(request.getMethod()).append("\n");
+        try {
+            if (IS_DEVELOPER) {
+                builder.append("headers: ").append(request.getHeaders()).append("\n");
+            }
+            builder.append("body: ")
+                    .append(request.getBody() == null ? "" : new String(request.getBody()))
+                    .append("\n(").append(request.getBodyContentType()).append(")");
+        } catch (Exception e) {
+            builder.append("encountered error while getting header or body " + e);
+        }
+        return DoyaLogger.debug(builder.toString());
     }
 
     static private String toString(Throwable throwable) {
