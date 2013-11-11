@@ -123,7 +123,7 @@ public class GoogleCloudMessagingHelper {
         DoyaLogger.debug("sendRegistrationIdToServer");
         JSONObject params = new JSONObject();
         try {
-            params.put("reg", gcmRegistrationId);
+            params.put("gcm", gcmRegistrationId);
         } catch (JSONException e) {
             DoyaLogger.error("registration_id error", e);
         }
