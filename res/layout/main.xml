@@ -3,24 +3,34 @@
               android:id="@+id/activity_root"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-    >
-  <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="wrap_content"
+              android:layout_height="fill_parent">
+  <FrameLayout
+      android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:id="@+id/face_wrapper"
-      android:layout_gravity="center"
-      android:paddingBottom="10dp"
-      android:background="@color/background_white"
-      android:paddingTop="5dp">
-    <ImageView
+      android:background="@color/background_white">
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/faces"
-        android:background="@color/background_white"/>
-  </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/face_wrapper"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:background="@color/background_white"
+        android:paddingTop="5dp">
+      <com.example.EmotionChat.FaceView
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:id="@+id/face_left"
+          android:background="@color/background_white"
+          android:layout_marginRight="20dp"/>
+      <com.example.EmotionChat.FaceView
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:id="@+id/face_right"
+          android:background="@color/background_white"
+          android:layout_marginLeft="20dp"/>
+    </LinearLayout>
+  </FrameLayout>
   <RelativeLayout
       android:layout_width="fill_parent"
       android:layout_height="fill_parent">

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 public class MainActivity extends Activity {
     private long friendId = 1;
     private ArrayAdapter adapter;
+    private FaceView friendFace;
+    private FaceView myFace;
 
     public static final String UPDATE_CHAT_EVENT = "update_chat";
     public static final String EXTRA_KEY_USER_ID = "user_id";
@@ -42,10 +44,14 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
         getActionBar().setTitle("さやかと会話");
         getActionBar().setDisplayShowHomeEnabled(false);
+        setContentView(R.layout.main);
+
+        friendFace = (FaceView) findViewById(R.id.face_left);
+        myFace = (FaceView) findViewById(R.id.face_right);
+        friendFace.setSex(FaceView.SEX.FEMALE);
+        friendFace.setLeftBrow(1).setRightBrow(1).setLeftEye(1).setRightEye(1).setMouth(1);
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 chatUpdateReceiver, new IntentFilter(UPDATE_CHAT_EVENT));
 

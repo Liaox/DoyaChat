@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
+  <ImageView
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:id="@+id/face_body"
+      android:src="@drawable/face_man"
+      android:background="@color/background_white"
+      android:layout_marginRight="20dp"/>
+  <ImageView
+      android:layout_width="30dp"
+      android:layout_height="15dp"
+      android:id="@+id/brow_left"
+      android:src="@drawable/brow1"
+      android:layout_marginTop="40dp"
+      android:layout_marginLeft="7dp"/>
+  <ImageView
+      android:layout_width="30dp"
+      android:layout_height="15dp"
+      android:id="@+id/brow_right"
+      android:src="@drawable/brow1"
+      android:layout_marginTop="40dp"
+      android:layout_marginLeft="45dp"/>
+  <ImageView
+      android:layout_width="25dp"
+      android:layout_height="13dp"
+      android:id="@+id/eve_left"
+      android:src="@drawable/eye1"
+      android:layout_marginLeft="7dp"
+      android:layout_marginTop="54dp"/>
+  <ImageView
+      android:layout_width="25dp"
+      android:layout_height="13dp"
+      android:id="@+id/eve_right"
+      android:src="@drawable/eye1"
+      android:layout_marginLeft="47dp"
+      android:layout_marginTop="54dp"/>
+  <ImageView
+      android:layout_width="60dp"
+      android:layout_height="18dp"
+      android:id="@+id/mouth"
+      android:src="@drawable/mouth1"
+      android:layout_marginLeft="12dp"
+      android:layout_marginTop="70dp"
+      android:layout_alignRight="@+id/eve_right"/>
+</RelativeLayout>
