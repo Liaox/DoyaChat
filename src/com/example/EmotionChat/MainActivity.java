@@ -5,21 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
-import com.google.common.collect.ImmutableList;
-
-import java.util.List;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
-    private static final List<ChatItem> DUMMY_CONVERSATION = ImmutableList.<ChatItem>of(
-            new ChatItem(-1, "好きです"),
-            new ChatItem(1, "北海道出身です"),
-            new ChatItem(-1, "好きです"),
-            new ChatItem(1, "北海道出身です"),
-            new ChatItem(-1, "好きです"),
-            new ChatItem(1, "北海道出身です")
-    );
-
+    private long friendId = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,8 +38,40 @@ public class MainActivity extends Activity {
         initGoogleCloudMessagingIfNecessary();
 
         ListView listView = (ListView) findViewById(R.id.conversation_list);
-        ArrayAdapter adapter = new ChatAdapter(this, DUMMY_CONVERSATION);
+        final ArrayAdapter adapter = new ChatAdapter(this, new ArrayList<ChatItem>());
         listView.setAdapter(adapter);
+
+        findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = ((EditText) findViewById(R.id.editText));
+                String content = editText.getText().toString();
+                if (content.length() == 0) {
+                    return;
+                }
+                Request sendRequest = new StringRequest(
+                        Request.Method.POST,
+                        DoyaAPI.getSendUrl(getMyId(), friendId),
+                        content,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String s) {
+                                DoyaLogger.debug("content posted", s);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                DoyaLogger.error("Post Error", volleyError);
+                            }
+                        });
+                DoyaLogger.dumpRequest(sendRequest);
+                sendRequest.setRetryPolicy(DoyaAPI.RETRY_POLICY_LONG);
+                DoyaApp.defaultRequestQueue().add(sendRequest);
+                adapter.add(new ChatItem(getMyId(), content));
+                editText.setText("");
+            }
+        });
     }
 
 
@@ -68,5 +94,9 @@ public class MainActivity extends Activity {
 
     private void onKeyboardDisappear() {
         findViewById(R.id.face_wrapper).setVisibility(View.VISIBLE);
+    }
+
+    private long getMyId() {
+        return DoyaPreferences.getMyId(this);
     }
 }
