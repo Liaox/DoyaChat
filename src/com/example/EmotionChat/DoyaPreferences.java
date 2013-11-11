@@ -38,9 +38,15 @@ public class DoyaPreferences {
         return ret;
     }
 
+    public static long getFriendId(Context context) {
+        long ret =  getDefault(context).getLong(DoyaPreferences.KEY_FRIEND_ID, -1);
+        return ret;
+    }
+
     public static final String KEY_APP_VERSION = "app_version";
     public static final int APP_VERSION_DEFAULT = 0;
     public static final String KEY_MY_ID = "my_id";
+    public static final String KEY_FRIEND_ID = "friend_id";
 
     public static final String KEY_USE_FAKE_REQUEST_QUEUE = "use_fake_request_queue";
     public static final boolean USE_FAKE_REQUEST_QUEUE_DEFAULT = false;

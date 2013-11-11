@@ -7,8 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -102,6 +101,31 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(chatUpdateReceiver);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        friendId = DoyaPreferences.getFriendId(this);
+        super.onResume();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_config:
+                Intent intent = new Intent(this, MainPreferenceActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initGoogleCloudMessagingIfNecessary() {
