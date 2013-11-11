@@ -20,6 +20,9 @@ public class MainPreferenceActivity extends PreferenceActivity {
         PreferenceManager preferenceManager = getPreferenceManager();
         preferenceManager.setSharedPreferencesName(DoyaPreferences.getPreferencesName());
         screen = preferenceManager.createPreferenceScreen(this);
+        Preference myId = new Preference(this);
+        myId.setTitle("MyID: " + DoyaPreferences.getMyId(this));
+        screen.addPreference(myId);
         screen.addPreference(friendIdPreference());
         setPreferenceScreen(screen);
     }
