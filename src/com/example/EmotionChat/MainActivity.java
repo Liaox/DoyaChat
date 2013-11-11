@@ -42,6 +42,24 @@ public class MainActivity extends Activity {
             ));
         }
     };
+    public static final String UPDATE_FACE_EVENT = "update_face";
+    public static final String EXTRA_KEY_LEFT_BROW = "left_brow";
+    public static final String EXTRA_KEY_RIGHT_BROW = "right_brow";
+    public static final String EXTRA_KEY_LEFT_EYE = "left_eye";
+    public static final String EXTRA_KEY_RIGHT_EYE = "right_eye";
+    public static final String EXTRA_KEY_MOUTH = "mouth";
+    private BroadcastReceiver faceUpdateReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            DoyaLogger.debug("on Receive", intent);
+            friendFace.setLeftBrow(intent.getIntExtra(EXTRA_KEY_LEFT_BROW, 0))
+                    .setRightBrow(intent.getIntExtra(EXTRA_KEY_RIGHT_BROW, 0))
+                    .setLeftEye(intent.getIntExtra(EXTRA_KEY_LEFT_EYE, 0))
+                    .setRightEye(intent.getIntExtra(EXTRA_KEY_RIGHT_EYE, 0))
+                    .setMouth(intent.getIntExtra(EXTRA_KEY_MOUTH, 0));
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +74,8 @@ public class MainActivity extends Activity {
         friendFace.setLeftBrow(1).setRightBrow(1).setLeftEye(1).setRightEye(1).setMouth(1);
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 chatUpdateReceiver, new IntentFilter(UPDATE_CHAT_EVENT));
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                faceUpdateReceiver, new IntentFilter(UPDATE_FACE_EVENT));
 
         final View activityRootView = findViewById(R.id.activity_root);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -114,6 +134,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(chatUpdateReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(faceUpdateReceiver);
         super.onDestroy();
     }
 

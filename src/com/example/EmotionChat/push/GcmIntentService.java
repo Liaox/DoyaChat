@@ -14,6 +14,7 @@ import org.json.JSONObject;
  */
 public class GcmIntentService extends IntentService {
     private static final String TAG_MSG = "msg";
+    private static final String TAG_UPDATE_FACE = "update_face";
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -41,6 +42,16 @@ public class GcmIntentService extends IntentService {
                 Intent broadcastIntent = new Intent(MainActivity.UPDATE_CHAT_EVENT);
                 broadcastIntent.putExtra(MainActivity.EXTRA_KEY_USER_ID, id);
                 broadcastIntent.putExtra(MainActivity.EXTRA_KEY_CONTENT, msg);
+                LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
+                DoyaLogger.debug("updated");
+            } else if (tag.equals(TAG_UPDATE_FACE)) {
+                JSONObject json = new JSONObject(body);
+                Intent broadcastIntent = new Intent(MainActivity.UPDATE_FACE_EVENT);
+                broadcastIntent.putExtra(MainActivity.EXTRA_KEY_LEFT_BROW, json.getInt("left_brow"));
+                broadcastIntent.putExtra(MainActivity.EXTRA_KEY_RIGHT_EYE, json.getInt("right_brow"));
+                broadcastIntent.putExtra(MainActivity.EXTRA_KEY_LEFT_EYE, json.getInt("left_eye"));
+                broadcastIntent.putExtra(MainActivity.EXTRA_KEY_RIGHT_EYE, json.getInt("right_eye"));
+                broadcastIntent.putExtra(MainActivity.EXTRA_KEY_MOUTH, json.getInt("mouth"));
                 LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
                 DoyaLogger.debug("updated");
             }
