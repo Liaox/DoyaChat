@@ -9,7 +9,7 @@
   <color name="background_color_gray">#f5f5f5</color>
   <color name="font_color_gray">#666666</color>
 
-  <color name="btn_normal">#F25C99</color>
+  <color name="btn_normal">#EA4C89</color>
   <color name="btn_focused">#EA4C89</color>
   <color name="btn_pressed">#EA4C89</color>
   <color name="btn_unactive">#AAAAAA</color>
