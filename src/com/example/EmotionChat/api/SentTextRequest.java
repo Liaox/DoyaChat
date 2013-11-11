@@ -1,24 +1,24 @@
 package com.example.EmotionChat.api;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.google.common.collect.ImmutableMap;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * 文字列を送って文字列をもらう
  */
-public class StringRequest extends Request<String> {
+public class SentTextRequest extends Request<String> {
     private final Response.Listener<String> listener;
     private final String param;
-    private static final String PROTOCOL_CHARSET = "utf-8";
-    private static final String PROTOCOL_CONTENT_TYPE =
-            String.format("text/plain; charset=%s", PROTOCOL_CHARSET);
 
-    public StringRequest(int method, String url, String param, Response.Listener<String> listener,
-                         Response.ErrorListener errorListener) {
+    public SentTextRequest(int method, String url, String param, Response.Listener<String> listener,
+                           Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.param = param;
         this.listener = listener;
@@ -41,12 +41,7 @@ public class StringRequest extends Request<String> {
     }
 
     @Override
-    public String getBodyContentType() {
-        return PROTOCOL_CONTENT_TYPE;
-    }
-
-    @Override
-    public byte[] getBody() {
-        return param.getBytes();
+    protected Map<String, String> getParams() throws AuthFailureError {
+        return ImmutableMap.of("msg", param);
     }
 }

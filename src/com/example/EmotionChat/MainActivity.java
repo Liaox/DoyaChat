@@ -17,7 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.EmotionChat.api.DoyaAPI;
-import com.example.EmotionChat.api.StringRequest;
+import com.example.EmotionChat.api.SentTextRequest;
 import com.example.EmotionChat.util.DoyaLogger;
 
 import java.util.ArrayList;
@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
                 if (content.length() == 0) {
                     return;
                 }
-                Request sendRequest = new StringRequest(
+                Request sendRequest = new SentTextRequest(
                         Request.Method.POST,
                         DoyaAPI.getSendUrl(getMyId(), friendId),
                         content,

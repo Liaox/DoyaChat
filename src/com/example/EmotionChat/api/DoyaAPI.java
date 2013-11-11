@@ -35,7 +35,7 @@ public class DoyaAPI {
     }
 
     public static String getSendUrl(long fromId, long toId) {
-        return BASE + Long.toString(fromId) + "/" + Long.toString(toId);
+        return BASE + "send/" + Long.toString(fromId) + "/" + Long.toString(toId);
     }
 
     public static final DoyaAPI REGISTER_GCM_ID = new DoyaAPI(Request.Method.POST, "register");
