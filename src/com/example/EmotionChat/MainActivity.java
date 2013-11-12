@@ -1,13 +1,14 @@
 package com.example.EmotionChat;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.*;
 import android.widget.ArrayAdapter;
@@ -20,13 +21,27 @@ import com.example.EmotionChat.api.DoyaAPI;
 import com.example.EmotionChat.api.SentTextRequest;
 import com.example.EmotionChat.util.DoyaLogger;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements SurfaceHolder.Callback {
     private long friendId = 1;
     private ArrayAdapter adapter;
     private FaceView friendFace;
     private FaceView myFace;
+    private Handler handler = new Handler();
+    private Runnable takePhotoRunnable;
+    private boolean isResume = false;
+    private boolean savePhotoForDebug = false;
+
+    private SurfaceView surfaceView;
+    private SurfaceHolder surfaceHolder;
+    private Camera camera;
+    private boolean isPreviewRunning;
 
     public static final String UPDATE_CHAT_EVENT = "update_chat";
     public static final String EXTRA_KEY_USER_ID = "user_id";
@@ -129,6 +144,112 @@ public class MainActivity extends Activity {
                 editText.setText("");
             }
         });
+
+        surfaceView = (SurfaceView) findViewById(R.id.surface);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback(this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    }
+
+    private void takePicture() {
+        camera.takePicture(
+                new Camera.ShutterCallback() {
+                    @Override
+                    public void onShutter() {}
+                }, new Camera.PictureCallback() {
+                    @Override
+                    public void onPictureTaken(byte[] data, Camera camera) {}
+                },
+                new Camera.PictureCallback() {
+                    @Override
+                    public void onPictureTaken(byte[] data, Camera camera) {
+                        DoyaLogger.debug("Photo taken");
+                        DoyaLogger.debug(data);
+                        if (savePhotoForDebug) {
+                            saveImageToLocal(data);
+                        }
+                        camera.startPreview();
+                    }
+                });
+        DoyaLogger.debug("take", isResume);
+        if (isResume) {
+            takePhotoRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    takePicture();
+                }
+            };
+            handler.postDelayed(takePhotoRunnable, 1000);
+        }
+    }
+
+    private void saveImageToLocal(byte[] data) {
+        if (data == null) {
+            return;
+        }
+        String saveDir = Environment.getExternalStorageDirectory().getPath() + "/test";
+        File file = new File(saveDir);
+
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                DoyaLogger.error("folder creation error");
+            }
+        }
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String imgPath = saveDir + "/" + sf.format(cal.getTime()) + ".jpg";
+
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imgPath, true);
+            fos.write(data);
+            fos.close();
+
+            registerToAndroidDB(imgPath);
+
+        } catch (Exception e) {
+            DoyaLogger.error("File write error", e);
+        }
+        fos = null;
+    }
+
+    private void registerToAndroidDB(String path) {
+        ContentValues values = new ContentValues();
+        ContentResolver contentResolver = getContentResolver();
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put("_data", path);
+        contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        camera = openFrontFacingCamera();
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+        DoyaLogger.debug("Change", isPreviewRunning);
+        if (isPreviewRunning) {
+            camera.stopPreview();
+            isPreviewRunning = false;
+        }
+
+        try {
+            camera.setPreviewDisplay(surfaceHolder);
+        } catch (IOException e) {
+            DoyaLogger.error("hoge", e);
+        }
+        camera.startPreview();
+        isPreviewRunning = true;
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        DoyaLogger.debug("surface destory");
+        camera.stopPreview();
+        camera.release();
+        camera = null;
     }
 
     @Override
@@ -138,10 +259,44 @@ public class MainActivity extends Activity {
         super.onDestroy();
     }
 
+    private Camera openFrontFacingCamera() {
+        int cameraCount = 0;
+        Camera cam = null;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        cameraCount = Camera.getNumberOfCameras();
+        for ( int camIdx = 0; camIdx < cameraCount; camIdx++ ) {
+            Camera.getCameraInfo( camIdx, cameraInfo );
+            if ( cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT  ) {
+                try {
+                    cam = Camera.open( camIdx );
+                } catch (RuntimeException e) {
+                    DoyaLogger.error("Camera failed to open: " + e.getLocalizedMessage());
+                }
+            }
+        }
+
+        return cam;
+    }
+
     @Override
     protected void onResume() {
         friendId = DoyaPreferences.getFriendId(this);
+        takePhotoRunnable = new Runnable() {
+            @Override
+            public void run() {
+                takePicture();
+            }
+        };
+        handler.postDelayed(takePhotoRunnable, 1000);
+        isResume = true;
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResume = false;
+        handler.removeCallbacks(takePhotoRunnable);
     }
 
     @Override

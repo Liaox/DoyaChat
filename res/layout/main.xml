@@ -58,5 +58,9 @@
         android:id="@+id/conversation_list"
         android:layout_above="@id/text_box_wrapper"/>
   </RelativeLayout>
+  <SurfaceView
+    android:id="@+id/surface"
+    android:layout_height="1dp"
+    android:layout_width="1dp"/>
 </LinearLayout>
 
