@@ -277,6 +277,9 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         DoyaLogger.debug("surface destory");
+        if (camera == null) {
+            return;
+        }
         camera.stopPreview();
         camera.release();
         camera = null;

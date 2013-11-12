@@ -18,14 +18,14 @@
         android:background="@color/background_white"
         android:paddingTop="5dp">
       <com.example.EmotionChat.FaceView
-          android:layout_width="100dp"
-          android:layout_height="100dp"
+          android:layout_width="125dp"
+          android:layout_height="125dp"
           android:id="@+id/face_left"
           android:background="@color/background_white"
           android:layout_marginRight="20dp"/>
       <com.example.EmotionChat.FaceView
-          android:layout_width="100dp"
-          android:layout_height="100dp"
+          android:layout_width="125dp"
+          android:layout_height="125dp"
           android:id="@+id/face_right"
           android:background="@color/background_white"
           android:layout_marginLeft="20dp"/>
