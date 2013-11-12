@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActionBar().setTitle("さやかと会話");
+        getActionBar().setTitle("さやか");
         getActionBar().setDisplayShowHomeEnabled(false);
         setContentView(R.layout.main);
 

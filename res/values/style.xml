@@ -13,6 +13,8 @@
     </style>
     <style name="doya_actionbar_titletextstyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/font_color_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
     </style>
     <style name="doya_actionbar_button" parent="@android:Widget.ActionButton">
         <item name="android:background">@drawable/btn_color_stateful</item>
