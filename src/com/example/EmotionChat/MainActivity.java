@@ -5,6 +5,7 @@ import android.content.*;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -153,6 +154,10 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
     }
 
     private void takePicture() {
+        if ("google_sdk".equals(Build.PRODUCT)) {
+            DoyaLogger.debug("emulator, skip");
+            return;
+        }
         camera.takePicture(
                 new Camera.ShutterCallback() {
                     @Override
@@ -258,6 +263,9 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         }
 
         try {
+            if (camera == null) {
+                return;
+            }
             camera.setPreviewDisplay(surfaceHolder);
         } catch (IOException e) {
             DoyaLogger.error("hoge", e);
