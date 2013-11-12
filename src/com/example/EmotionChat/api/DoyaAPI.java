@@ -8,7 +8,7 @@ import com.android.volley.RetryPolicy;
  * Class that represents information about certain API.
  */
 public class DoyaAPI {
-    public static final String BASE = "http://doyachat.cloudapp.net/";
+    public static final String BASE = "http://e22dec26831747dda2136cf6b2b053cf.cloudapp.net/";
     public static final RetryPolicy RETRY_POLICY_LONG
             = new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 4,
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
