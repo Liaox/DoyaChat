@@ -13,11 +13,11 @@ import java.util.Map;
 /**
  * 文字列を送って文字列をもらう
  */
-public class SentTextRequest extends Request<String> {
+public class SendTextRequest extends Request<String> {
     private final Response.Listener<String> listener;
     private final String param;
 
-    public SentTextRequest(int method, String url, String param, Response.Listener<String> listener,
+    public SendTextRequest(int method, String url, String param, Response.Listener<String> listener,
                            Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.param = param;
