@@ -21,23 +21,28 @@ public class FaceView extends RelativeLayout {
 
     private static final List<Integer> LEFT_BROW_DRAWABLES = ImmutableList.of(
             R.drawable.brow1,
-            R.drawable.left_brow2
+            R.drawable.left_brow2,
+            R.drawable.brow1
     );
     private static final List<Integer> RIGHT_BROW_DRAWABLES = ImmutableList.of(
             R.drawable.brow1,
-            R.drawable.right_brow2
+            R.drawable.right_brow2,
+            R.drawable.brow1
     );
     private static final List<Integer> LEFT_EYE_DRAWABLES = ImmutableList.of(
             R.drawable.eye1,
-            R.drawable.eye2
+            R.drawable.eye2,
+            R.drawable.eye3
     );
     private static final List<Integer> RIGHT_EYE_DRAWABLES = ImmutableList.of(
             R.drawable.eye1,
-            R.drawable.eye2
+            R.drawable.eye2,
+            R.drawable.eye3
     );
     private static final List<Integer> MOUTH_DRAWABLES = ImmutableList.of(
             R.drawable.mouth1,
-            R.drawable.mouth2
+            R.drawable.mouth2,
+            R.drawable.mouth3
     );
 
     public enum SEX {
