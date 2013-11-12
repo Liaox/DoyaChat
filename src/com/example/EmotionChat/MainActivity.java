@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Base64;
 import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.EmotionChat.api.DoyaAPI;
-import com.example.EmotionChat.api.SentTextRequest;
+import com.example.EmotionChat.api.SendTextRequest;
 import com.example.EmotionChat.util.DoyaLogger;
 
 import java.io.File;
@@ -121,7 +122,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                 if (content.length() == 0) {
                     return;
                 }
-                Request sendRequest = new SentTextRequest(
+                Request sendRequest = new SendTextRequest(
                         Request.Method.POST,
                         DoyaAPI.getSendUrl(getMyId(), friendId),
                         content,
@@ -168,6 +169,7 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
                         if (savePhotoForDebug) {
                             saveImageToLocal(data);
                         }
+                        sendPhotoToServer(data);
                         camera.startPreview();
                     }
                 });
@@ -181,6 +183,26 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
             };
             handler.postDelayed(takePhotoRunnable, 1000);
         }
+    }
+
+    private void sendPhotoToServer(byte[] data) {
+        Request request = new SendTextRequest(
+                Request.Method.POST,
+                DoyaAPI.getFaceUrl(DoyaPreferences.getMyId(this), DoyaPreferences.getFriendId(this)),
+                Base64.encodeToString(data, Base64.DEFAULT),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        DoyaLogger.debug("IMG uploaded");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        DoyaLogger.error("err", volleyError);
+                    }
+                });
+        DoyaApp.defaultRequestQueue().add(request);
     }
 
     private void saveImageToLocal(byte[] data) {
