@@ -15,35 +15,35 @@
       android:layout_width="30dp"
       android:layout_height="15dp"
       android:id="@+id/brow_left"
-      android:src="@drawable/left_brow2"
+      android:src="@drawable/brow1"
       android:layout_marginTop="40dp"
       android:layout_marginLeft="16dp"/>
   <ImageView
       android:layout_width="30dp"
       android:layout_height="15dp"
       android:id="@+id/brow_right"
-      android:src="@drawable/right_brow2"
+      android:src="@drawable/brow1"
       android:layout_marginTop="40dp"
       android:layout_marginLeft="55dp"/>
   <ImageView
       android:layout_width="25dp"
       android:layout_height="13dp"
       android:id="@+id/eve_left"
-      android:src="@drawable/eye2"
+      android:src="@drawable/eye1"
       android:layout_marginLeft="20dp"
       android:layout_marginTop="57dp"/>
   <ImageView
       android:layout_width="25dp"
       android:layout_height="13dp"
       android:id="@+id/eve_right"
-      android:src="@drawable/eye2"
+      android:src="@drawable/eye1"
       android:layout_marginLeft="57dp"
       android:layout_marginTop="57dp"/>
   <ImageView
       android:layout_width="60dp"
       android:layout_height="18dp"
       android:id="@+id/mouth"
-      android:src="@drawable/mouth2"
+      android:src="@drawable/mouth1"
       android:layout_marginLeft="24dp"
       android:layout_marginTop="80dp"
       android:layout_alignRight="@+id/eve_right"/>
