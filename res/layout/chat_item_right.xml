@@ -2,18 +2,25 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:paddingLeft="20dp"
               android:paddingTop="3dp"
-              android:paddingBottom="3dp">
+              android:paddingBottom="4dp"
+    >
   <TextView
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/chat_content"
       android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew Text"
       android:textSize="16sp"
-      android:gravity="right"
       android:autoText="false"
-      android:background="@drawable/balloon_right"/>
+      android:background="@drawable/balloon_right"
+      android:paddingRight="18dp"
+      android:textColor="#ffffff"
+      android:paddingTop="6dp"
+      android:paddingBottom="6dp"
+      android:layout_gravity="right"
+      android:layout_marginRight="10dp"
+      android:paddingLeft="18dp"/>
 </LinearLayout>

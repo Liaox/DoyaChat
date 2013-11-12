@@ -2,16 +2,21 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:paddingLeft="20dp"
+              android:paddingLeft="10dp"
               android:paddingTop="3dp"
-              android:paddingBottom="3dp">
+              android:paddingBottom="4dp">
   <TextView
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/chat_content"
       android:background="@drawable/balloon_left"
+      android:textColor="@color/font_color_black"
       android:text="New TextNew TextNew TextNew TextNew TextNew TextNew TextNew Text"
-      android:textSize="16sp"/>
+      android:textSize="16sp"
+      android:paddingLeft="18dp"
+      android:paddingRight="18dp"
+      android:paddingTop="6dp"
+      android:paddingBottom="6dp"/>
 </LinearLayout>
