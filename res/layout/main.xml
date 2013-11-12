@@ -22,7 +22,8 @@
           android:layout_height="125dp"
           android:id="@+id/face_left"
           android:background="@color/background_white"
-          android:layout_marginRight="20dp"/>
+          android:layout_marginRight="10dp"
+          android:layout_marginLeft="20dp"/>
       <com.example.EmotionChat.FaceView
           android:layout_width="125dp"
           android:layout_height="125dp"
@@ -45,7 +46,8 @@
           android:text="送信"
           android:id="@+id/send_button"
           android:background="@drawable/btn_color_stateful"
-          android:layout_alignParentRight="true"/>
+          android:layout_alignParentRight="true"
+          android:textColor="@color/font_color_white"/>
       <EditText
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

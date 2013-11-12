@@ -85,8 +85,8 @@ public class MainActivity extends Activity implements SurfaceHolder.Callback {
         getActionBar().setDisplayShowHomeEnabled(false);
         setContentView(R.layout.main);
 
-        friendFace = (FaceView) findViewById(R.id.face_left);
-        myFace = (FaceView) findViewById(R.id.face_right);
+        friendFace = (FaceView) findViewById(R.id.face_right);
+        myFace = (FaceView) findViewById(R.id.face_left);
         friendFace.setSex(FaceView.SEX.FEMALE);
         friendFace.setLeftBrow(1).setRightBrow(1).setLeftEye(1).setRightEye(1).setMouth(1);
         LocalBroadcastManager.getInstance(this).registerReceiver(

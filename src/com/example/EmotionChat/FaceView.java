@@ -73,7 +73,7 @@ public class FaceView extends RelativeLayout {
         if (sex == SEX.MALE) {
             faceBody.setImageDrawable(getResources().getDrawable(R.drawable.face_man));
         } else if (sex == SEX.FEMALE) {
-            faceBody.setImageDrawable(getResources().getDrawable(R.drawable.face_woman));
+            faceBody.setImageDrawable(getResources().getDrawable(R.drawable.girl));
         }
         return this;
     }
